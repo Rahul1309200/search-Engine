@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Engine</title>
+    <style>
+        /* General body styling with background image */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: url('https://media.istockphoto.com/photos/searching-files-on-digital-background-picture-id640188664?k=6&m=640188664&s=170667a&w=0&h=LIUK8Cj5-DMNWwT_gyx0p85LdGKLnIjI-wiQ67D3S28=') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+        }
+
+        /* Gradient overlay */
+        .overlay {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Profile icon styling */
+        .profile-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%; /* Circular profile icon */
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .profile-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Main heading styling */
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        /* Form styling */
+        form {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        /* Input field styling */
+        input[type="text"] {
+            padding: 12px;
+            width: 350px;
+            border: 2px solid #3498db;
+            border-radius: 25px; /* Rounded corners for search bar */
+            font-size: 16px;
+            outline: none;
+            box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.1);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"]:focus {
+            border-color: #2980b9;
+            box-shadow: 0 0 10px rgba(41, 128, 185, 0.6);
+        }
+
+        /* Button styling */
+        button {
+            padding: 12px 24px;
+            background-color: #2980b9;
+            color: white;
+            border: none;
+            border-radius: 25px; /* Rounded button */
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease, transform 0.2s, box-shadow 0.3s ease;
+            margin: 5px; /* Space between buttons */
+        }
+
+        button:hover {
+            background-color: #1a5b8b;
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Clear button styling */
+        button.clear {
+            background-color: #e74c3c;
+        }
+
+        button.clear:hover {
+            background-color: #c0392b;
+        }
+
+        /* Table styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: white;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Table header */
+        thead {
+            background-color: #3498db;
+            color: white;
+        }
+
+        th, td {
+            padding: 15px;
+            border: 1px solid #ddd;
+            text-align: left;
+            font-size: 1rem;
+        }
+
+        td {
+            background-color: #fff;
+        }
+
+        /* Alternate row colors */
+        tr:nth-child(even) td {
+            background-color: #f8f8f8;
+        }
+
+        /* Hover effect for table rows */
+        tr:hover td {
+            background-color: #ecf0f1;
+        }
+
+        /* Footer styling */
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .icon {
+            display: inline-block;
+            margin: 0 10px;
+            width: 50px;
+            height: 50px;
+        }
+
+        .icon img {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Responsive design for mobile screens */
+        @media (max-width: 600px) {
+            input[type="text"] {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+            button {
+                width: 100%;
+                margin-top: 10px;
+                padding: 12px;
+            }
+
+            form {
+                align-items: stretch;
+            }
+
+            table {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-icon">
+        <img src="https://www.pngall.com/wp-content/uploads/5/Profile-PNG-Image.png" alt="Profile Icon">
+    </div>
+    <div class="overlay">
+        <h1>Search Engine</h1>
+        <form id="task-form">
+            <input type="text" id="task-input" placeholder="Search here" required>
+            <div>
+                <button type="submit">Search</button>
+                <button type="button" class="clear">Clear History</button> 
+            </div>
+        </form>
+        
+        <table id="task-table">
+            <thead>
+                <tr>
+                    <th>History</th>
+                </tr>
+            </thead>
+            <tbody id="task-body"> 
+                <tr><td>No search history found.</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <footer>
+        <h2 style="color: #2c3e50;">Most Searched</h2>
+        <div class="icon">
+            <img src="https://logosmarcas.net/wp-content/uploads/2020/09/Google-Emblema.png" alt="Google">
+        </div>
+        <div class="icon">
+            <img src="https://tse1.mm.bing.net/th?id=OIP.NgKsYHHZ-n2-TFqH989xSQHaEK&pid=Api&P=0&h=220" alt="Yahoo">
+        </div>
+        <div class="icon">
+            <img src="https://tse2.mm.bing.net/th?id=OIP.yNgXeCIKKfhma3QYDs7IRwHaEo&pid=Api&P=0&h=220" alt="Bing">
+        </div>
+        <div class="icon">
+            <img src="https://download.logo.wine/logo/DuckDuckGo/DuckDuckGo-Logo.wine.png" alt="DuckDuckGo">
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const taskForm = document.getElementById('task-form');
+            const taskInput = document.getElementById('task-input');
+            const taskBody = document.getElementById('task-body');
+            const clearButton = document.querySelector('.clear'); 
+            let search = JSON.parse(localStorage.getItem('search')) || [];
+            renderSearch();
+
+            taskForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+                const task = { name: taskInput.value };
+                search.push(task);
+                localStorage.setItem('search', JSON.stringify(search));
+                renderSearch();
+                taskForm.reset();
+            });
+
+            function renderSearch() {
+                taskBody.innerHTML = '';
+                if (search.length === 0) {
+                    taskBody.innerHTML = '<tr><td>No search history found.</td></tr>';
+                } else {
+                    search.forEach(task => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `<td>${task.name}</td>`;
+                        taskBody.appendChild(row);
+                    });
+                }
+            }
+
+            clearButton.addEventListener('click', () => {
+                search = [];
+                localStorage.removeItem('search');
+                renderSearch();
+            });
+        });
+    </script>
+</body>
+</html>
